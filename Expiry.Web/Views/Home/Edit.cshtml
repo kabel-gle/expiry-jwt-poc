@@ -1,0 +1,90 @@
+﻿@model ReminderViewModel
+
+<div class="row">
+    <div class="col-md-6">
+        @if (!string.IsNullOrEmpty(Model.Id))
+        {
+            <h1 class="h3 mb-3 font-weight-normal">Edición de @Model.Name</h1>
+        }
+        else
+        {
+            <h1 class="h3 mb-3 font-weight-normal">Nuevo recordatorio</h1>
+        }
+    </div>
+    <div class="col-md-6 text-right">
+        @if (!string.IsNullOrEmpty(Model.Id))
+        {
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#deleteModal" data-reminder-id="@Model.Id">
+                Eliminar
+            </button>
+        }
+    </div>
+</div>
+
+<form asp-action="Edit" method="post">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Name"></label>
+            <input class="form-control" asp-for="Name" />
+            <small class="text-muted">Nombre del producto o servicio</small>
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Price"></label>
+            <input class="form-control" asp-for="Price" />
+            <small class="text-muted">Precio total del producto o servicio</small>
+            <span asp-validation-for="Price"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-12 mb-3">
+            <label asp-for="Notes"></label>
+            <input class="form-control" asp-for="Notes" />
+            <small class="text-muted">Información complementaria sobre el producto o servicio para el recordatorio</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="ExpiryDate"></label>
+            <input class="form-control" asp-for="ExpiryDate" />
+            <small class="text-muted">Fecha de vencimiento o caducidad</small>
+            <span asp-validation-for="ExpiryDate"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="ReminderValue"></label>
+            <input class="form-control" asp-for="ReminderValue" />
+            <small class="text-muted">Establece cuando se notificará el recordatorio</small>
+            <span asp-validation-for="ReminderValue"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label></label>
+            <select class="form-control mt-2" asp-for="ReminderTerm" asp-items="Html.GetEnumSelectList<ReminderTermViewModel>()"></select>
+            <span asp-validation-for="ReminderTerm"></span>
+        </div>
+    </div>
+    <div class="clearfix">
+        <a class="btn btn-secondary float-left" href="/">Volver</a>
+        <input class="btn btn-primary float-right" type="submit" value="Guardar" />
+    </div>
+</form>
+
+<div id="deleteModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">¿Estas seguro?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="reminderId" />
+                <p>Para borrar el recordario pulsa el boton eliminar</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="deleteConfirmation">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

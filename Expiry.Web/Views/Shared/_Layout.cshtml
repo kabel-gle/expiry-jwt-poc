@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expiry</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="w-100">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("ExpiryToken")))
+    {
+        <form class="form-logout" method="post" asp-controller="Home" asp-action="Logout">
+            <button class="btn btn-link">Salir</button>
+        </form>
+    }
+    <script src="~/js/jquery-3.5.1.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

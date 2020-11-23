@@ -1,0 +1,35 @@
+﻿@model List<ReminderViewModel>
+
+<div class="row">
+    <div class="col-md-6">
+        <h1 class="h3 mb-3 font-weight-normal">Recordatorios</h1>
+    </div>
+    <div class="col-md-6 text-right">
+        <a asp-controller="Home" asp-action="Edit" class="btn btn-link">
+            Nuevo
+        </a>
+    </div>
+</div>
+<div class="no-gutters">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <a class="link-non-underlined" asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id">
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p><strong>@item.Name</strong></p>
+                                <p>@item.Notes</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">@(item.Price) €</small>
+                                <small class="text-muted">Caduca el @item.ExpiryDate.ToShortDateString()</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
